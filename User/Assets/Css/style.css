@@ -1,0 +1,43 @@
+:root {
+    --color-text: #000000A6;
+}
+
+.app {
+    background-image: url(../../../Public/bg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.heading_1,
+.item_title a {
+    color: var(--color-text);
+}
+
+.box-test_item {
+    border: 1px solid #d4d2d2;
+    border-radius: 5px;
+}
+
+.item_title {
+    background-color: #e2dfdf;
+    color: var(--color-text);
+}
+
+.box_test {
+    background-color: #fff;
+    border: 1px solid #d4d2d2;
+    border-radius: 5px;
+}
+
+.box {
+    height: 100vh;
+}
+
+.login {
+    background-color: #fff;
+    border: 1px solid #d4d2d2;
+    border-radius: 5px;
+    width: 42%;
+}

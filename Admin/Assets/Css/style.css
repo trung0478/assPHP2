@@ -1,0 +1,11 @@
+:root{
+    --color-text:#000000A6;
+}
+.app {
+    margin: 0;
+    background-image: url(../../../Public/bg.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
