@@ -2,7 +2,7 @@
         <div class="box d-flex justify-content-center align-items-center">
             <div class="login px-lg-5 px-3 py-lg-5 py-4 ">
                 <h5 class="fs-3 text-center">Đăng nhập</h5>
-                <form action="?act=login" method="post" >
+                <form id="myForm" action="?act=login" method="post" >
                     <label class="mb-1" >Tên đăng nhập</label> <br>
                     <input class="form-control" name="account" type="text" placeholder="Nhập tên đăng nhập"><br>
     

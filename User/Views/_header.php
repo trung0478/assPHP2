@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="User/Assets/Css/style.css">
 </head>
 
+<style>
+        label.error {
+            color: red;
+        }
+</style>
+
 <body>
     <div class="app">
         <div class="container">
@@ -54,7 +60,7 @@
                                     if (isset($_SESSION['account']) && $_SESSION['account'] != "") {
                                         if ($_SESSION['role'] == 1) {
                                     ?>
-                                            <li><a class="dropdown-item" href="#">QUẢN TRỊ</a></li>
+                                            <li><a class="dropdown-item" href="Admin/Views">QUẢN TRỊ</a></li>
                                             <li><a class="dropdown-item" href="?act=testHistory">LỊCH SỬ KIỂM TRA</a></li>
                                             <li><a class="dropdown-item" href="?act=logout">ĐĂNG XUẤT</a></li>
                                         <?php

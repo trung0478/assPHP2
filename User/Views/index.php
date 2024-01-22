@@ -3,6 +3,7 @@ include 'Config/db.php';
 include 'User/Models/accounts.php';
 include 'User/Models/quizzes.php';
 include 'User/Models/result.php';
+include 'Global/global.php';
 
 session_start();
 
@@ -10,8 +11,6 @@ session_start();
 include 'User/Views/_header.php';
 
 $quizzes = getAllQuizzes();
-// $_SESSION['account']="1111";
-
 
 if (isset($_GET['act']) && $_GET['act'] != '') {
     switch ($_GET['act']) {
@@ -24,12 +23,20 @@ if (isset($_GET['act']) && $_GET['act'] != '') {
                 $acc = $_POST['account'];
                 $pass = $_POST['pass'];
                 $login = login($acc, $pass);
-                var_dump($login);
+
                 if (is_array($login)) {
-                    $_SESSION['account'] = $login;
-                    $_SESSION['id_account'] = $login['id_user'];
-                    $_SESSION['role'] = $login['role'];
-                    echo "<script> window.location.href='?act=home';</script>";
+                    if ($login['role']==1) {
+                        $_SESSION['accountAdmin']=$login['role'];
+                        $_SESSION['account'] = $login;
+                        $_SESSION['id_account'] = $login['id_user'];
+                        $_SESSION['role'] = $login['role'];
+                        echo "<script> window.location.href='?act=home';</script>";
+                    }else{
+                        $_SESSION['account'] = $login;
+                        $_SESSION['id_account'] = $login['id_user'];
+                        $_SESSION['role'] = $login['role'];
+                        echo "<script> window.location.href='?act=home';</script>";
+                    }
                 } else {
                     $invalidLogin = "Sai tài khoản hoặc mật khẩu";
                 }

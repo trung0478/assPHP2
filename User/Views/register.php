@@ -1,7 +1,7 @@
 <div class="box d-flex justify-content-center align-items-center">
     <div class="login px-lg-5 px-3 py-lg-5 py-4 ">
         <h5 class="fs-3 text-center">Đăng ký</h5>
-        <form action="?act=register" method="post" onsubmit="return handleRegister()">
+        <form id="myForm" action="?act=register" method="post" >
             <label class="mb-1">Tên đăng nhập</label> <br>
             <input class="form-control" name="account" type="text" placeholder="Nhập tên đăng nhập"><br>
 
@@ -17,7 +17,7 @@
         </form>
     </div>
 </div>
-<script>
+<!-- <script>
     function handleRegister() {
         // Kiểm tra điều kiện đăng ký thành công (có thể sử dụng AJAX để kiểm tra từ server)
         var registerSuccess = true; // Giả sử đăng ký thành công
@@ -32,4 +32,4 @@
         //     return false; // Ngăn chặn form được submit
         // }
     }
-</script>
+</script> -->
