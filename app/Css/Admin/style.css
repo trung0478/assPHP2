@@ -1,0 +1,29 @@
+:root{
+    --color-text:#000000A6;
+}
+
+.app {
+    margin: 0;
+    background-image: url(../../Public/bg.png); /* đường link được tính từ file css đến file ảnh */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.heading_{
+    color: var(--color-text);
+}
+
+.box_test {
+    background-color: #fff;
+    border: 1px solid #d4d2d2;
+    border-radius: 5px;
+}
+
+.login {
+    background-color: #fff;
+    border: 1px solid #d4d2d2;
+    border-radius: 5px;
+    width: 42%;
+}
