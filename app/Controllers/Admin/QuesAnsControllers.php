@@ -2,39 +2,40 @@
 
 namespace App\Controllers\Admin;
 
+use App\Controllers\BaseController;
 use App\Models\Admin\QuesAns;
 
-class QuesAnsControllers
+class QuesAnsControllers extends BaseController
 {
-    public function listQuestion()
+    protected $QuesAnsModels;
+
+    public function __construct()
     {
-        if (isset($_GET['idQuiz']) && $_GET['idQuiz'] > 0) {
-            $QuesAnsModels = new QuesAns();
-            $questions = $QuesAnsModels->getQuestions($_GET['idQuiz']);
-            $questions_ = $QuesAnsModels->getQuestions_($_GET['idQuiz']);
-            $_SESSION['idQuiz'] = $_GET['idQuiz'];
-        }
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/questions_answers/listQuestion.php';
-        include 'app/Views/Admin/_footer.php';
+        return $this->QuesAnsModels = new QuesAns();
     }
 
-    public function listAnswer()
+    public function listQuestion($idQuiz)
     {
-        if (isset($_GET['idQues']) && $_GET['idQues'] > 0) {
-            $QuesAnsModels = new QuesAns();
-            $answers = $QuesAnsModels->getAnswers($_GET['idQues']);
-        }
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/questions_answers/listAnswer.php';
-        include 'app/Views/Admin/_footer.php';
+        $questions = $this->QuesAnsModels->getQuestions($idQuiz);
+        $questions_ = $this->QuesAnsModels->getQuestions_($idQuiz);
+        $_SESSION['idQuiz'] = $idQuiz;
+
+        $title="Câu hỏi";
+        $this->render('Admin.questions_answers.listQuestion',compact('questions','questions_','title'));
+    }
+
+    public function listAnswer($idQues)
+    {
+        $answers = $this->QuesAnsModels->getAnswers($idQues);
+
+        $title="Câu trả lời";
+        $this->render('Admin.questions_answers.listAnswer',compact('answers','title'));
     }
 
     public function addQuesAnsInterface()
     {
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/questions_answers/addQuesAns.php';
-        include 'app/Views/Admin/_footer.php';
+        $title="Thêm câu hỏi, câu trả lời";
+        $this->render('Admin.questions_answers.addQuesAns',compact('title'));
     }
 
     public function addQuesAns()
@@ -44,10 +45,8 @@ class QuesAnsControllers
             $answerCorrect = $_POST['answerCorrect'];
             // var_dump($answerCorrect);
 
-            $QuesAnsModels = new QuesAns();
-
             // lấy ra id question cuối vừa thêm
-            $idQuestion =  $QuesAnsModels->addQuestion($question, $_SESSION['idQuiz']);
+            $idQuestion =  $this->QuesAnsModels->addQuestion($question, $_SESSION['idQuiz']);
             // var_dump($idQuestion);
 
             // mảng câu trả lời
@@ -57,28 +56,25 @@ class QuesAnsControllers
             // thêm câu trả lời theo idQuestion
             foreach ($answers as $key => $answer) {
                 $isCorrect = ($key == $answerCorrect) ? 1 : 0;
-                $QuesAnsModels->addAnswer($answer, $isCorrect, $idQuestion);
+                $this->QuesAnsModels->addAnswer($answer, $isCorrect, $idQuestion);
             }
-            header("Location:" . BASE_URL . "listQuestion&idQuiz=" . $_SESSION['idQuiz']);
+            header("Location:" . BASE_URL . "listQuestion_" . $_SESSION['idQuiz']);
         }
     }
 
-    public function updateQuesAnsInterface()
+    public function updateQuesAnsInterface($idQues)
     {
-        if (isset($_GET['idQues']) && $_GET['idQues'] > 0) {
-            $QuesAnsModels = new QuesAns();
-            $question = $QuesAnsModels->getOneQuestion($_GET['idQues']);
-            $answers = $QuesAnsModels->getAnswers($_GET['idQues']);
-        }
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/questions_answers/updateQuesAns.php';
-        include 'app/Views/Admin/_footer.php';
+        $question = $this->QuesAnsModels->getOneQuestion($idQues);
+        $answers = $this->QuesAnsModels->getAnswers($idQues);
+
+        $title="Sửa câu hỏi, câu trả lời";
+        $this->render('Admin.questions_answers.updateQuesAns',compact('question','answers','title'));
     }
 
-    public function updateQuesAns()
+    public function updateQuesAns($idQues)
     {
         if (isset($_POST['submit'])) {
-            $idQues = $_POST['idQues'];
+            // $idQues = $_POST['idQues'];
             $question = $_POST['question'];
 
             // mảng idAnswers
@@ -88,18 +84,17 @@ class QuesAnsControllers
             // đáp án đúng
             $answerCorrect = $_POST['answerCorrect'];
 
-            $QuesAnsModels = new QuesAns();
 
             // sửa question
-            $QuesAnsModels->updateQuestion($question, $idQues);
+            $this->QuesAnsModels->updateQuestion($question, $idQues);
 
             // sửa answer
             foreach ($idAnswers as $key => $idAnswer) {
                 $answer = $answers[$key];
                 $isCorrect = ($key == $answerCorrect) ? 1 : 0;
-                $QuesAnsModels->updateAnswer($answer, $isCorrect, $idAnswer);
+                $this->QuesAnsModels->updateAnswer($answer, $isCorrect, $idAnswer);
             }
-            header("Location:" . BASE_URL . "listQuestion&idQuiz=" . $_SESSION['idQuiz']);
+            header("Location:" . BASE_URL . "listQuestion_" . $_SESSION['idQuiz']);
         }
     }
 }

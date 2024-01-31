@@ -1,4 +1,5 @@
-
+@extends('layout.admin') 
+@section('content')
         <div class="box d-flex justify-content-center align-items-center mt-lg-5 mt-5">
             <div class="login px-lg-5 px-3 py-lg-5 py-4 ">
                 <h5 class="fs-3 text-center">Đăng nhập quản trị</h5>
@@ -24,3 +25,4 @@
                 </form>
             </div>
         </div>
+@endsection('content')

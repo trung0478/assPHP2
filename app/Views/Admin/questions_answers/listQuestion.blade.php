@@ -1,3 +1,5 @@
+@extends('layout.admin')
+@section('content')
 <div class="row mt-lg-4 mt-2">
     <div class="col-12 d-flex justify-content-center">
         <div class="box_test w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
@@ -18,8 +20,8 @@
                         <span><?= $question ?></span>
                     </div>
                     <div class="col-3">
-                        <a href="<?= BASE_URL."updateQuesAnsInterface&idQues=".$id_question ?>" class="btn btn-warning mb-lg-0 mb-1">Sửa</a>
-                        <a href="<?= BASE_URL."listAnswer&idQues=".$id_question ?>" class="btn btn-secondary ">Xem chi tiết</a>
+                        <a href="<?= BASE_URL."updateQuesAnsInterface_".$id_question ?>" class="btn btn-warning mb-lg-0 mb-1">Sửa</a>
+                        <a href="<?= BASE_URL."listAnswer_".$id_question ?>" class="btn btn-secondary ">Xem chi tiết</a>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -27,3 +29,4 @@
         </div>
     </div>
 </div>
+@endsection('content')

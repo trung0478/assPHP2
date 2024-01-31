@@ -1,4 +1,5 @@
-
+@extends('layout.admin')
+@section('content')
             <div class="row mt-lg-4 mt-2">
                 <div class="col-12 d-flex justify-content-center">
                     <div class="box_test w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
@@ -16,6 +17,7 @@
                                 <th>Ngày tạo</th>
                                 <th>Thao tác</th>
                             </tr>
+                            <?= (isset($message_noDelete))?$message_noDelete:"";?>
                             <tbody>
                                 <?php
                                 foreach ($listQuiz  as $value) :
@@ -29,9 +31,9 @@
                                         </td>
                                         <td><?= $created_at ?></td>
                                         <td>
-                                            <a href="<?php echo BASE_URL . 'updateTestInterface?idQuiz='.$id_quiz ?>" class="btn btn-warning">Sửa</a>
-                                            <a onclick="return confirm('Bạn có muốn xoá không ??')" href="<?php echo BASE_URL . 'deleteTest?idQuiz='.$id_quiz ?>" class="btn btn-danger">Xoá</a>
-                                            <a href="<?php echo BASE_URL . 'listQuestion?idQuiz='.$id_quiz ?>" class="btn btn-success">Xem chi tiết</a>
+                                            <a href="<?php echo BASE_URL . 'updateTestInterface_'.$id_quiz ?>" class="btn btn-warning">Sửa</a>
+                                            <a onclick="return confirm('Bạn có muốn xoá không ??')" href="<?php echo BASE_URL . 'deleteTest_'.$id_quiz ?>" class="btn btn-danger">Xoá</a>
+                                            <a href="<?php echo BASE_URL . 'listQuestion_'.$id_quiz ?>" class="btn btn-success">Xem chi tiết</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -40,4 +42,5 @@
                     </div>
                 </div>
             </div>
+@endsection('content')
         

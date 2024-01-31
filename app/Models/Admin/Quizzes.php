@@ -43,6 +43,12 @@ class Quizzes extends DB
         $this->pdo_execute($sql);
     }
 
+    function countIdQuiz($idQuiz)
+    {
+        $sql = "SELECT COUNT(questions.id_quiz) as soluong FROM questions WHERE questions.id_quiz=$idQuiz";
+        return $this->pdo_query_one($sql);
+    }
+
     function deleteQuiz($idQuiz)
     {
         $sql = "DELETE FROM quizzes WHERE id_quiz=$idQuiz";

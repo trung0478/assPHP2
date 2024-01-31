@@ -3,7 +3,7 @@
 }
 
 .app {
-    background-image: url(../../../Public/bg.png);
+    background-image: url(../../Public/bg.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

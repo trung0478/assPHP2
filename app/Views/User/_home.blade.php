@@ -1,4 +1,5 @@
-<!-- main -->
+@extends('layout.user')
+@section('content')
 <div class="heading_1 mt-lg-4 mt-2">
     <h4 class="fs-4">Bài kiểm tra phổ biến</h4>
 </div>
@@ -14,10 +15,10 @@
                     <img width="80%" height="150px" src="<?= $image ?>" alt="">
                 </div>
                 <div class="item_title text-center py-lg-2 py-1">
-                    <a href="<?= BASE_URL . "quiz&idquiz=" . $id_quiz ?>" class="mb-0 fs-4 text-decoration-none"><?= $title ?></a>
+                    <a href="<?= BASE_URL . "quiz_" . $id_quiz ?>" class="mb-0 fs-4 text-decoration-none"><?= $title ?></a>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
-
 </div>
+@endsection

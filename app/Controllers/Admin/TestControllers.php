@@ -2,76 +2,79 @@
 
 namespace App\Controllers\Admin;
 
+use App\Controllers\BaseController;
 use App\Models\Admin\Quizzes;
 
-class TestControllers
+class TestControllers extends BaseController
 {
+    protected $quizzesModels;
+
+    public function __construct()
+    {
+        return $this->quizzesModels = new Quizzes();
+    }
+
     public function listQuiz()
     {
-        $quizzesModels = new Quizzes();
-        $listQuiz = $quizzesModels->showQuizzes();
-
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/quizzes/listQuizz.php';
-        include 'app/Views/Admin/_footer.php';
-
+        $listQuiz = $this->quizzesModels->showQuizzes();
+        $title="Bài kiểm tra";
+        $this->render('Admin.quizzes.listQuizz',compact('listQuiz','title'));
     }
 
     public function addQuizInterface()
     {
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/quizzes/addQuiz.php';
-        include 'app/Views/Admin/_footer.php';
+        $title="Thêm bài kiểm tra";
+        $this->render('Admin.quizzes.addQuiz',compact('title'));
     }
 
-    public function addQuiz() {
+    public function addQuiz()
+    {
         if (isset($_POST['submit'])) {
             $title = $_POST['title'];
             $imageName = $_FILES['image']['name']; // tên ảnh lấy từ form
             $fileImage = "app/Public/image/" . time() . basename($imageName); // basename(): lấy ra tên file từ đường dẫn
             move_uploaded_file($_FILES['image']['tmp_name'], $fileImage); // move từ thư mục tạm chứa file sang file đích muốn đưa đến
 
-            $quizzesModels = new Quizzes();
-            $quizzesModels->addQuizzes($title, $fileImage);
+            $this->quizzesModels->addQuizzes($title, $fileImage);
 
-            header("Location:".BASE_URL."test");
+            header("Location:" . BASE_URL . "test");
         }
     }
 
-    public function updateQuizInterface() {
-        if (isset($_GET['idQuiz']) && $_GET['idQuiz'] > 0) {
-            $idQuiz = $_GET['idQuiz'];
+    public function updateQuizInterface($idQuiz)
+    {
+        $quiz = $this->quizzesModels->getOneQuiz($idQuiz);
+        $title="Sửa bài kiểm tra";
+        $this->render('Admin.quizzes.updateQuiz',compact('quiz','title'));
+    }
 
-            $quizzesModels = new Quizzes();
-            $quiz = $quizzesModels->getOneQuiz($idQuiz);
-        }
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/quizzes/updateQuiz.php';
-        include 'app/Views/Admin/_footer.php';
-    } 
-
-    public function updateQuiz() {
+    public function updateQuiz($idQuiz)
+    {
         if (isset($_POST['submit'])) {
-            $idQuiz = $_POST['idQuiz'];
+            // $idQuiz lấy từ route       -> cách1
+            // $idQuiz = $_POST['idQuiz'];-> cách2
             $title = $_POST['title'];
             $imageName = $_FILES['image']['name']; // tên ảnh lấy từ form
-            $fileImage = "app/Public/image/". time() . basename($imageName); // basename(): lấy ra tên file từ đường dẫn
+            $fileImage = "app/Public/image/" . time() . basename($imageName); // basename(): lấy ra tên file từ đường dẫn
             move_uploaded_file($_FILES['image']['tmp_name'], $fileImage);
 
-            $quizzesModels = new Quizzes();
-            $quizzesModels->updateQuiz($idQuiz, $title, $fileImage, $imageName);
+            $this->quizzesModels->updateQuiz($idQuiz, $title, $fileImage, $imageName);
 
-            header("Location:".BASE_URL."test");
+            header("Location:" . BASE_URL . "test");
         }
     }
 
-    public function deleteQuiz() {
-        if (isset($_GET['idQuiz']) && $_GET['idQuiz'] > 0) {
-            $quizzesModels = new Quizzes();
-            $quizzesModels->deleteQuiz($_GET['idQuiz']);
+    public function deleteQuiz($idQuiz)
+    {
+        $countIdQuiz = $this->quizzesModels->countIdQuiz($idQuiz);
+        if ($countIdQuiz['soluong']<=0) {
+            $this->quizzesModels->deleteQuiz($idQuiz);
+            header("Location:" . BASE_URL . "test");
+        }else{
+            $listQuiz = $this->quizzesModels->showQuizzes();
+            $message_noDelete='<h6 class="alert alert-danger">Bài kiểm tra vẫn còn câu hỏi, câu trả lời. Không thể xoá!!</h6>';
+            $title="Bài kiểm tra";
+            $this->render('Admin.quizzes.listQuizz',compact('listQuiz','title','message_noDelete'));
         }
-        header("Location:".BASE_URL."test");
     }
-
-
 }

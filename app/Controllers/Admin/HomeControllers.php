@@ -1,11 +1,12 @@
 <?php
 namespace App\Controllers\Admin;
 
-class HomeControllers{
+use App\Controllers\BaseController;
+
+class HomeControllers extends BaseController {
     public function home() {
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/_home.php';
-        include 'app/Views/Admin/_footer.php';
+        $title="Trang chủ Admin";
+        $this->render('Admin._home',compact('title'));
     }
 }
 

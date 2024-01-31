@@ -2,40 +2,40 @@
 
 namespace App\Controllers\User;
 
+use App\Controllers\BaseController;
 use App\Models\User\Quizzes;
 use App\Models\User\Result;
 
-class QuizzesControllers
+class QuizzesControllers extends BaseController
 {
-    public function quiz()
+    protected $QuizzesModels;
+    public function  __construct()
     {
-        if (isset($_GET['idquiz']) && $_GET['idquiz'] > 0) {
-            if (isset($_SESSION['account'])) {
-                $QuizzesModels = new Quizzes();
-                $quiz_ = $QuizzesModels->getOneQuiz_($_GET['idquiz']);
-                $quiz = $QuizzesModels->getOneQuiz($_GET['idquiz']);
-                include 'app/Views/User/_header.php';
-                include 'app/Views/User/Tests/start.php';
-                include 'app/Views/User/_footer.php';
-            } else {
-                $messageLogin = "Vui lòng đăng nhập để thực hiện bài kiểm tra";
-                include 'app/Views/User/_header.php';
-                include 'app/Views/User/Accounts/login.php';
-                include 'app/Views/User/_footer.php';
-            }
+        return $this->QuizzesModels = new Quizzes();
+    }
+
+    public function quiz($idQuiz)
+    {
+        if (isset($_SESSION['account'])) {
+            $quiz_ = $this->QuizzesModels->getOneQuiz_($idQuiz);
+            $quiz = $this->QuizzesModels->getOneQuiz($idQuiz);
+            $title = "Bài kiểm tra";
+            $this->render('User.Tests.start', compact('quiz_', 'quiz', 'title'));
+        } else {
+            $messageLogin = "Vui lòng đăng nhập để thực hiện bài kiểm tra";
+            $title = "Đăng nhập";
+            $this->render('User.Accounts.login', compact('messageLogin', 'title'));
         }
     }
 
-    public function start()
+    public function start($idQuiz)
     {
-        if (isset($_POST['idquiz']) && $_POST['idquiz'] > 0) {
-            $QuizzesModels = new Quizzes();
-            $quiz_ = $QuizzesModels->getOneQuiz_($_POST['idquiz']);
-            $quiz = $QuizzesModels->getOneQuiz($_POST['idquiz']);
-            include 'app/Views/User/_header.php';
-            include 'app/Views/User/Tests/test.php';
-            include 'app/Views/User/_footer.php';
-        }
+        $quiz_ = $this->QuizzesModels->getOneQuiz_($idQuiz);
+        $quiz = $this->QuizzesModels->getOneQuiz($idQuiz);
+        $QuizzesModels = new Quizzes();
+
+        $title = "Bài kiểm tra";
+        $this->render('User.Tests.test', compact('QuizzesModels', 'quiz_', 'quiz', 'title'));
     }
 
     public function submit()
@@ -69,9 +69,8 @@ class QuizzesControllers
             // lưu thông tin kết quả lên csdl
             $resultModels = new Result();
             $resultModels->addResult($score, $_SESSION['id_account'], $_POST['idQuiz'], count($answers));
-            include 'app/Views/User/_header.php';
-            include 'app/Views/User/Tests/result.php';
-            include 'app/Views/User/_footer.php';
+            $title = "Kết quả";
+            $this->render('User.Tests.result', compact('quiz_', 'score', 'answers', 'title'));
         }
     }
 }

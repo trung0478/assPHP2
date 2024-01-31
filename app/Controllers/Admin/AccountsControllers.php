@@ -2,15 +2,15 @@
 
 namespace App\Controllers\Admin;
 
+use App\Controllers\BaseController;
 use App\Models\Admin\Accounts;
 
-class AccountsControllers
+class AccountsControllers extends BaseController
 {
     public function loginAdminInterface()
     {
-        include 'app/Views/Admin/_header.php';
-        include 'app/Views/Admin/accounts/login.php';
-        include 'app/Views/Admin/_footer.php';
+       $title="Đăng nhập quản trị";
+       $this->render('Admin.accounts.login',compact('title'));
     }
 
     public function loginAdmin()
@@ -32,10 +32,14 @@ class AccountsControllers
                 }
             } else {
                 $invalidLogin = "Sai tài khoản hoặc mật khẩu";
-                include 'app/Views/Admin/_header.php';
-                include 'app/Views/Admin/accounts/login.php';
-                include 'app/Views/Admin/_footer.php';
+                $title="Đăng nhập quản trị";
+                $this->render('Admin.accounts.login',compact('invalidLogin','title'));
             }
         }
+    }
+
+    public function logoutAdmin() {
+        session_unset();
+        header('Location:'.BASE_URL."loginInterface");
     }
 }

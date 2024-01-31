@@ -2,15 +2,22 @@
 
 namespace App\Controllers\User;
 
+use App\Controllers\BaseController;
 use App\Models\User\Accounts;
 
-class AccountsControllers
+class AccountsControllers extends BaseController
 {
+    protected $accountsModels;
+
+    public function __construct()
+    {
+        return $this->accountsModels = new Accounts();
+    }
+
     public function loginInterface()
     {
-        include 'app/Views/User/_header.php';
-        include 'app/Views/User/Accounts/login.php';
-        include 'app/Views/User/_footer.php';
+        $title = "Đăng nhập";
+        $this->render('User.Accounts.login', compact('title'));
     }
 
     public function login()
@@ -19,8 +26,7 @@ class AccountsControllers
             $acc = $_POST['account'];
             $pass = $_POST['pass'];
 
-            $accountsModels = new Accounts();
-            $login = $accountsModels->login($acc, $pass);
+            $login = $this->accountsModels->login($acc, $pass);
 
             if (is_array($login)) {
                 if ($login['role'] == 1) {
@@ -37,10 +43,8 @@ class AccountsControllers
                 }
             } else {
                 $invalidLogin = "Sai tài khoản hoặc mật khẩu";
-                include 'app/Views/User/_header.php';
-                include 'app/Views/User/Accounts/login.php';
-                include 'app/Views/User/_footer.php';
-                // self::loginInterface();
+                $title = "Đăng nhập";
+                $this->render('User.Accounts.login', compact('invalidLogin', 'title'));
             }
         }
     }
@@ -53,35 +57,30 @@ class AccountsControllers
 
     public function registerInterface()
     {
-        include 'app/Views/User/_header.php';
-        include 'app/Views/User/Accounts/register.php';
-        include 'app/Views/User/_footer.php';
+        $title = "Đăng ký";
+        $this->render('User.Accounts.register', compact('title'));
     }
 
     public function register()
     {
         if (isset($_POST['register'])) {
-            $accountsModels = new Accounts();
-            $accountsModels->register($_POST['account'], $_POST['email'], $_POST['pass']);
+            $this->accountsModels->register($_POST['account'], $_POST['email'], $_POST['pass']);
         }
         header("Location:" . BASE_URL . "loginInterface");
     }
 
     public function forgetPassInterface()
     {
-        include 'app/Views/User/_header.php';
-        include 'app/Views/User/Accounts/forgetPass.php';
-        include 'app/Views/User/_footer.php';
+        $title = "Quên mật khẩu";
+        $this->render('User.Accounts.forgetPass', compact('title'));
     }
 
     public function forgetPass()
     {
         if (isset($_POST['submit'])) {
-            $accountsModels = new Accounts();
-            $sendPass = $accountsModels->check_email($_POST['email']);
+            $sendPass = $this->accountsModels->check_email($_POST['email']);
         }
-        include 'app/Views/User/_header.php';
-        include 'app/Views/User/Accounts/forgetPass.php';
-        include 'app/Views/User/_footer.php';
+        $title = "Quên mật khẩu";
+        $this->render('User.Accounts.forgetPass', compact('sendPass' ,'title'));
     }
 }

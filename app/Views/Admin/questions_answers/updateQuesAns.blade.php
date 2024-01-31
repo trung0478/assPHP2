@@ -1,10 +1,12 @@
+@extends('layout.admin')
+@section('content')
 <div class="row mt-lg-4 mt-2">
     <div class="col-12 d-flex justify-content-center">
         <div class="box_test w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
             <h3 class="fs-3 mb-lg-3 mb-3 heading_">Sửa câu hỏi và câu trả lời</h3>
-            <form id="myForm" action="<?=BASE_URL."updateQuesAns"?>" method="post" enctype="multipart/form-data">
+            <form id="myForm" action="<?= BASE_URL . "updateQuesAns_" . $question['id_question'] ?>" method="post" enctype="multipart/form-data">
                 <label for="">Câu hỏi</label> <br>
-                <input type="hidden" name="idQues" value="<?= $question['id_question'] ?>">
+
                 <input type="text" name="question" class="form-control" placeholder="Nhập câu hỏi" value="<?= $question['question'] ?>"><br>
 
                 <div class="box-answer px-3 my-lg-2 my-1">
@@ -36,3 +38,4 @@
         </div>
     </div>
 </div>
+@endsection('content')

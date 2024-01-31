@@ -1,4 +1,5 @@
-<!-- test -->
+@extends('layout.user')
+@section('content')
 <div class="row mt-lg-4 mt-2">
     <div class="col-12 d-flex justify-content-center">
         <div class="box_test w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
@@ -92,3 +93,4 @@
     //     }
     // });
 </script>
+@endsection

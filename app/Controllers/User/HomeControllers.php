@@ -2,16 +2,17 @@
 
 namespace App\Controllers\User;
 
+use App\Controllers\BaseController;
 use App\Models\User\Quizzes;
 
-class HomeControllers
+class HomeControllers extends BaseController
 {
     public function home()
     {
         $QuizzesModels = new Quizzes();
         $quizzes = $QuizzesModels->getAllQuizzes();
-        include 'app/Views/User/_header.php';
-        include 'app/Views/User/_home.php';
-        include 'app/Views/User/_footer.php';
+        $title="Trang chủ";
+        $this->render('User._home',compact('quizzes','title'));
     }
 }
+?>

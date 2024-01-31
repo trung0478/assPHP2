@@ -1,3 +1,5 @@
+@extends('layout.user')
+@section('content')
 <div class="box d-flex justify-content-center align-items-center">
     <div class="login px-lg-5 px-3 py-lg-5 py-4 ">
         <h5 class="fs-3 text-center">Lấy lại mật khẩu</h5>
@@ -17,3 +19,4 @@
         </form>
     </div>
 </div>
+@endsection('content')
