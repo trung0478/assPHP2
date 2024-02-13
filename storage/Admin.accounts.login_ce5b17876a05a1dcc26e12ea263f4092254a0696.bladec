@@ -1,4 +1,4 @@
-<?php $_shouldextend[1]=1; ?>
+<?php $_shouldextend[1]=1; ?> 
 <?php $this->startSection('content'); ?>
  <div class="box d-flex justify-content-center align-items-center mt-lg-5 mt-5">
  <div class="login px-lg-5 px-3 py-lg-5 py-4 ">
@@ -27,4 +27,4 @@
  </div>
 <?php $this->stopSection(); ?>
 
-<?php if (isset($_shouldextend[1])) { echo $this->runChild('Admin.layout.admin'); } ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.admin'); } ?>

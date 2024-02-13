@@ -6,9 +6,14 @@ use App\Models\DB;
 
 class Quizzes extends DB
 {
+    public function searchQuizzes($key) {
+        $sql = "SELECT * FROM quizzes WHERE status = 1 AND title LIKE '%" . $key . "%'";
+        return $this->pdo_query($sql);
+    }
+    
     public function getAllQuizzes()
     {
-        $sql = "SELECT * FROM quizzes ";
+        $sql = "SELECT * FROM quizzes WHERE status = 1";
         return $this->pdo_query($sql);
     }
 

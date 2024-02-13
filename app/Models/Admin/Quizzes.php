@@ -15,7 +15,7 @@ class Quizzes extends DB
     function addQuizzes($title, $image)
     {
         $date = date('Y-m-d');
-        $sql = "INSERT INTO quizzes VALUES(NULL, '$title', '$image','$date')";
+        $sql = "INSERT INTO quizzes VALUES(NULL, '$title', '$image','$date', 1)";
         $this->pdo_execute($sql);
     }
 
@@ -25,7 +25,7 @@ class Quizzes extends DB
         return $this->pdo_query_one($sql);
     }
 
-    function updateQuiz($idQuiz, $title, $fileImage, $imageName)
+    function updateQuiz($idQuiz, $title, $fileImage, $imageName, $status)
     {
         // $imageName: tên ảnh nhập từ from
         // $fileImage: đường dẫn đến ảnh
@@ -36,9 +36,9 @@ class Quizzes extends DB
                 $oldImage = $quiz['image'];
                 unlink($oldImage);
             }
-            $sql = "UPDATE quizzes SET title= '" . $title . "', image ='" . $fileImage . "' WHERE id_quiz = $idQuiz ";
+            $sql = "UPDATE quizzes SET title= '" . $title . "', image ='" . $fileImage . "' , status= '" . $status . "' WHERE id_quiz = $idQuiz ";
         } else {
-            $sql = "UPDATE quizzes SET title= '" . $title . "' WHERE id_quiz = $idQuiz";
+            $sql = "UPDATE quizzes SET title= '" . $title . "' , status= '" . $status . "' WHERE id_quiz = $idQuiz";
         }
         $this->pdo_execute($sql);
     }

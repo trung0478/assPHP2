@@ -52,13 +52,14 @@ class TestControllers extends BaseController
     {
         if (isset($_POST['submit'])) {
             // $idQuiz lấy từ route       -> cách1
-            // $idQuiz = $_POST['idQuiz'];-> cách2
+            // $idQuiz = $_POST['idQuiz'];-> cách2: lấy từ name vơi type = hidden
             $title = $_POST['title'];
+            $status = $_POST['status'];
             $imageName = $_FILES['image']['name']; // tên ảnh lấy từ form
             $fileImage = "app/Public/image/" . time() . basename($imageName); // basename(): lấy ra tên file từ đường dẫn
             move_uploaded_file($_FILES['image']['tmp_name'], $fileImage);
 
-            $this->quizzesModels->updateQuiz($idQuiz, $title, $fileImage, $imageName);
+            $this->quizzesModels->updateQuiz($idQuiz, $title, $fileImage, $imageName,$status);
 
             header("Location:" . BASE_URL . "test");
         }

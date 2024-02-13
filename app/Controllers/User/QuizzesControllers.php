@@ -43,20 +43,16 @@ class QuizzesControllers extends BaseController
         if (isset($_POST['submit'])) {
             $QuizzesModels = new Quizzes();
             $quiz_ = $QuizzesModels->getOneQuiz_($_POST['idQuiz']);
-            // lấy ra đáp án người dùng chọn
+            $quiz = $QuizzesModels->getOneQuiz($_POST['idQuiz']);
+
+            // lấy ra mảng đáp án người dùng chọn
             $answers = $_POST['answer'];
-            // foreach ($answers as $idQues => $idAns) {
-            //    echo $idQues.'_'. $idAns;
-            // }
             // echo "<pre>";
-            // print_r($answers);
+            // var_dump($answers);
             // echo "</pre>";
 
             // lấy ra mảng id câu trả đúng với mỗi câu hỏi
             $answersCorrect = $_POST['idAnswerCorrect'];
-            // echo "<pre>";
-            // print_r($answersCorrect);
-            // echo "</pre>";
 
             $score = 0;
             foreach ($answers as $id_question => $selected_answer) {
@@ -70,7 +66,7 @@ class QuizzesControllers extends BaseController
             $resultModels = new Result();
             $resultModels->addResult($score, $_SESSION['id_account'], $_POST['idQuiz'], count($answers));
             $title = "Kết quả";
-            $this->render('User.Tests.result', compact('quiz_', 'score', 'answers', 'title'));
+            $this->render('User.Tests.result', compact('answersCorrect','QuizzesModels','quiz','quiz_', 'score', 'answers', 'title'));
         }
     }
 }

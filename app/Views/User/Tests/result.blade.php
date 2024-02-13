@@ -2,11 +2,42 @@
 @section('content')
 <div class="row mt-lg-4 mt-2">
     <div class="col-12 d-flex justify-content-center">
-        <div class="box_test text-center w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
-            <h4 class="fs-4">Kết quả bài kiểm tra</h4>
-            <p class="fs-5"><?=$quiz_['title']?></p>
-            <p class="fs-5">Điểm:<?=$score?>/<?=count($answers)?> </p>
-            <a href="<?=BASE_URL?>" class="w-25 btn btn-success">Kết thúc</a>
+        <div class="box_test w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
+            <h4 class="fs-4 text-center">Kết quả bài kiểm tra</h4>
+            <p class="fs-5 text-center"><?= $quiz_['title'] ?></p>
+            <p class="fs-5 text-center">Điểm:<?= $score ?>/<?= count($answers) ?> </p>
+
+            <?php
+            foreach ($quiz as $key => $value) :
+                extract($value);
+            ?>
+                <div class="box_test-question">
+                    <?php
+                    // so sánh đáp án người dùng chọn với đáp án đúng => hiển thị giao diện tương ứng
+                    $correct = ($answers[$id_question] == $answersCorrect[$id_question]) ? "<i class='fa-solid fa-check'></i>" : "X";
+                    ?>
+                    <p  style="color: <?= ($correct!=="X"?"green":"red") ?>;"  class="fs-6 my-lg-1 my-0"><span><?= $key + 1 ?>. </span> <?= $question ?> <span> ?  <?php echo $correct ?></span> </p>  
+                </div>
+
+                <div class="box_test-answer mb-lg-2 mb-1">
+                    <?php
+                    $answers_ = $QuizzesModels->getAllAnswers($id_question);
+                    foreach ($answers_ as $value) :
+                        extract($value)
+                    ?>
+                        <div class="answer-item d-flex align-content-center">
+                            <input disabled type="radio" class="validate" name="answer[<?= $id_question ?>]" <?php echo ((string)$id_answer == $answersCorrect[$id_question]) ? "checked" : ""; ?>>
+                            <span class="fs-6 mx-lg-2 mx-1"><?= $answer ?> <?php var_dump((string)$id_answer)  . "==" . var_dump($answersCorrect[$id_question]) ?>
+                        </div>
+                    <?php endforeach; ?>
+                    </span>
+                    <span class="error-message"></span>
+                </div>
+            <?php endforeach; ?>
+
+            <div class="d-flex justify-content-center">
+                <a href="<?= BASE_URL ?>" class=" w-25 btn btn-success">Kết thúc</a>
+            </div>
         </div>
     </div>
 </div>

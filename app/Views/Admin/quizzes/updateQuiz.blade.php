@@ -13,6 +13,12 @@
                 <img class="my-lg-2 my-1" width="50px" src="<?=$quiz['image'] ?>" alt="">
                 <input type="file" name="image" class="form-control"><br>
 
+                <label for="">Trạng thái</label> <br>
+                <select name="status" class="form-control my-lg-2 my-1" id="">
+                    <option value="1" <?=($quiz['status'])==1?'selected':'';?>>Hiển thị</option>
+                    <option value="0" <?=($quiz['status'])==0?'selected':'';?>>Không hiển thị</option>
+                </select>
+
                 <input type="submit" name="submit" value="Sửa" class="btn btn-success">
             </form>
         </div>

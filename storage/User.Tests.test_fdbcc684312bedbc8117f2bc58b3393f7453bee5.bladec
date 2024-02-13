@@ -23,7 +23,7 @@
  <input type="hidden" name="idQuiz" value="<?= $quiz_['id_quiz'] ?>">
  <?php
  $answers = $QuizzesModels->getAllAnswers($id_question);
- $answerCorrect = $QuizzesModels->getAnswersCorrect($id_question);
+ $answerCorrect = $QuizzesModels->getAnswersCorrect($id_question); // lấy ra 1 id của câu trả lời đúng
  foreach ($answers as $value) :
  extract($value)
  ?>

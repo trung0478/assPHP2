@@ -31,4 +31,4 @@
 </div>
 <?php $this->stopSection(); ?>
 
-<?php if (isset($_shouldextend[1])) { echo $this->runChild('Admin.layout.admin'); } ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.admin'); } ?>
