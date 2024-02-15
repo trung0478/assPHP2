@@ -22,6 +22,10 @@ class HomeControllers extends BaseController
     }
 
     public function searchQuizzes() {
-        
+        if (isset($_POST['search'])) {
+            $quizzes = $this->QuizzesModels->searchQuizzes($_POST['keyWord']);
+            $title = "Tìm kiếm";
+            $this->render('User._home', compact('quizzes', 'title'));
+        }
     }
 }

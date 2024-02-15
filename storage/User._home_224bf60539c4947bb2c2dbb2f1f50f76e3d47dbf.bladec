@@ -6,6 +6,9 @@
 
 <div class="row justify-content-center mt-lg-4 mt-2">
  <?php
+ if (!isset($quizzes) || $quizzes == "") {
+ echo "Không có bài kiểm tra bạn vừa tìm !!!";
+ } else {
  foreach ($quizzes as $value) :
  extract($value);
  ?>
@@ -19,7 +22,8 @@
  </div>
  </div>
  </div>
- <?php endforeach; ?>
+ <?php endforeach;
+ } ?>
 </div>
 <?php $this->stopSection(); ?>
 <?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.user'); } ?>

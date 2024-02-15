@@ -51,6 +51,9 @@ $router->get('/logoutAdmin',[App\Controllers\Admin\AccountsControllers::class,'l
 // USER
 $router->get('/', [App\Controllers\User\HomeControllers::class, 'home']); // trang chủ
 $router->get('/quiz_{idQuiz}', [App\Controllers\User\QuizzesControllers::class, 'quiz']); // bài test
+
+$router->get('/search', [App\Controllers\User\HomeControllers::class, 'home']);
+$router->post('/search', [App\Controllers\User\HomeControllers::class, 'searchQuizzes']); 
                 
 // đăng nhập
 $router->get('/loginInterface', [App\Controllers\User\AccountsControllers::class, 'loginInterface']);
@@ -71,6 +74,7 @@ $router->post('/start_{idQuiz}', [App\Controllers\User\QuizzesControllers::class
 $router->post('/submit', [App\Controllers\User\QuizzesControllers::class, 'submit']);
 // history
 $router->get('/testHistory', [App\Controllers\User\ResultControllers::class, 'testHistory']);
+$router->get('/detailTestHistory_{idQuiz}', [App\Controllers\User\ResultControllers::class, 'detailTestHistory']);
 
 
 $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());

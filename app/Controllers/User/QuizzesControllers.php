@@ -66,7 +66,7 @@ class QuizzesControllers extends BaseController
             $resultModels = new Result();
             $resultModels->addResult($score, $_SESSION['id_account'], $_POST['idQuiz'], count($answers));
             $title = "Kết quả";
-            $this->render('User.Tests.result', compact('answersCorrect','QuizzesModels','quiz','quiz_', 'score', 'answers', 'title'));
+            $this->render('User.Tests.result', compact('answersCorrect', 'QuizzesModels', 'quiz', 'quiz_', 'score', 'answers', 'title'));
         }
     }
 }

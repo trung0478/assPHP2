@@ -35,7 +35,7 @@
  </div>
  <?php endforeach; ?>
 
- <div class="d-flex justify-content-end">
+ <div class="d-flex justify-content-center">
  <a href="<?= BASE_URL ?>" class=" w-25 btn btn-success">Kết thúc</a>
  </div>
  </div>
