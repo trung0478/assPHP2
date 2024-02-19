@@ -16,26 +16,32 @@ class QuizzesControllers extends BaseController
 
     public function quiz($idQuiz)
     {
+        // thêm cho phần thanh menu - Bài kiểm tra 
+        // $QuizzesModels = new Quizzes();
+        $quizzes = $this->QuizzesModels->getAllQuizzes();
+
         if (isset($_SESSION['account'])) {
             $quiz_ = $this->QuizzesModels->getOneQuiz_($idQuiz);
             $quiz = $this->QuizzesModels->getOneQuiz($idQuiz);
             $title = "Bài kiểm tra";
-            $this->render('User.Tests.start', compact('quiz_', 'quiz', 'title'));
+            $this->render('User.Tests.start', compact('quizzes','quiz_', 'quiz', 'title'));
         } else {
             $messageLogin = "Vui lòng đăng nhập để thực hiện bài kiểm tra";
             $title = "Đăng nhập";
-            $this->render('User.Accounts.login', compact('messageLogin', 'title'));
+            $this->render('User.Accounts.login', compact('quizzes','messageLogin', 'title'));
         }
     }
 
     public function start($idQuiz)
     {
+        $quizzes = $this->QuizzesModels->getAllQuizzes();
+
         $quiz_ = $this->QuizzesModels->getOneQuiz_($idQuiz);
         $quiz = $this->QuizzesModels->getOneQuiz($idQuiz);
         $QuizzesModels = new Quizzes();
 
         $title = "Bài kiểm tra";
-        $this->render('User.Tests.test', compact('QuizzesModels', 'quiz_', 'quiz', 'title'));
+        $this->render('User.Tests.test', compact('quizzes','QuizzesModels', 'quiz_', 'quiz', 'title'));
     }
 
     public function submit()

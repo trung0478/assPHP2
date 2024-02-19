@@ -81,13 +81,23 @@
                     title: "required",
                     image: "required",
                     question: "required",
-                    'answer[]': "required",
+                    account: "required",
+                    pass: {
+                        required: true,
+                        minlength: 5,
+                        checkPassword: true
+                    },
                 },
                 messages: {
                     title: "Vui lòng nhập tên bài kiểm tra.",
                     image: "Vui lòng chọn ảnh tải lên.",
                     question: "Vui lòng nhập câu hỏi.",
-                    'answer[]': "Vui lòng nhập",
+                    account: "Vui lòng nhập tên tài khoản.",
+                    pass: {
+                        required: "Vui lòng nhập mật khẩu.",
+                        minlength: "Vui lòng nhập tối thiểu 5 kí tự.",
+                        checkPassword: "Mật khẩu phải chứa ít nhất 1 chữ cái và 1 số."
+                    },
                 },
 
 

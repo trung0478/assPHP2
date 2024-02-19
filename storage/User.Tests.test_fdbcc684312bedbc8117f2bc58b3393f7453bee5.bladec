@@ -61,7 +61,7 @@
  document.getElementById('time').innerText = `Thời gian còn lại: ${minutes} phút ${seconds} giây`
 
  if (startTime <= 0) {
- document.getElementById('myForm').style.display = 'none';
+ document.getElementById('myForm1').style.display = 'none';
  alert('Bạn đã hết thời gian làm bài kiểm tra !!!');
  } else {
  startTime--

@@ -72,6 +72,7 @@ $router->get('/start_{idQuiz}', [App\Controllers\User\QuizzesControllers::class,
 $router->post('/start_{idQuiz}', [App\Controllers\User\QuizzesControllers::class, 'start']);
 // submit: chấm điểm và lưu kết quả
 $router->post('/submit', [App\Controllers\User\QuizzesControllers::class, 'submit']);
+$router->get('/submit', [App\Controllers\User\HomeControllers::class, 'home']);
 // history
 $router->get('/testHistory', [App\Controllers\User\ResultControllers::class, 'testHistory']);
 $router->get('/detailTestHistory_{idQuiz}', [App\Controllers\User\ResultControllers::class, 'detailTestHistory']);

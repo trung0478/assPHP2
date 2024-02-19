@@ -27,7 +27,7 @@
  ?>
  <div class="answer-item d-flex align-content-center">
  <input disabled type="radio" class="validate" name="answer[<?= $id_question ?>]" <?php echo ((string)$id_answer == $answersCorrect[$id_question]) ? "checked" : ""; ?>>
- <span class="fs-6 mx-lg-2 mx-1"><?= $answer ?> <?php var_dump((string)$id_answer)  . "==" . var_dump($answersCorrect[$id_question]) ?>
+ <span class="fs-6 mx-lg-2 mx-1"><?= $answer ?>
  </div>
  <?php endforeach; ?>
  </span>

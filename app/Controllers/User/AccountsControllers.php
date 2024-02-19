@@ -4,6 +4,7 @@ namespace App\Controllers\User;
 
 use App\Controllers\BaseController;
 use App\Models\User\Accounts;
+use App\Models\User\Quizzes;
 
 class AccountsControllers extends BaseController
 {
@@ -16,8 +17,12 @@ class AccountsControllers extends BaseController
 
     public function loginInterface()
     {
+        // thêm cho phần thanh menu - Bài kiểm tra 
+        $QuizzesModels = new Quizzes();
+        $quizzes = $QuizzesModels->getAllQuizzes();
+
         $title = "Đăng nhập";
-        $this->render('User.Accounts.login', compact('title'));
+        $this->render('User.Accounts.login', compact('quizzes', 'title'));
     }
 
     public function login()
@@ -57,8 +62,12 @@ class AccountsControllers extends BaseController
 
     public function registerInterface()
     {
+        // thêm cho phần thanh menu - Bài kiểm tra 
+        $QuizzesModels = new Quizzes();
+        $quizzes = $QuizzesModels->getAllQuizzes();
+
         $title = "Đăng ký";
-        $this->render('User.Accounts.register', compact('title'));
+        $this->render('User.Accounts.register', compact('quizzes','title'));
     }
 
     public function register()
@@ -71,8 +80,12 @@ class AccountsControllers extends BaseController
 
     public function forgetPassInterface()
     {
+        // thêm cho phần thanh menu - Bài kiểm tra 
+        $QuizzesModels = new Quizzes();
+        $quizzes = $QuizzesModels->getAllQuizzes();
+
         $title = "Quên mật khẩu";
-        $this->render('User.Accounts.forgetPass', compact('title'));
+        $this->render('User.Accounts.forgetPass', compact('quizzes', 'title'));
     }
 
     public function forgetPass()
@@ -81,6 +94,6 @@ class AccountsControllers extends BaseController
             $sendPass = $this->accountsModels->check_email($_POST['email']);
         }
         $title = "Quên mật khẩu";
-        $this->render('User.Accounts.forgetPass', compact('sendPass' ,'title'));
+        $this->render('User.Accounts.forgetPass', compact('sendPass', 'title'));
     }
 }

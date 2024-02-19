@@ -4,22 +4,27 @@
  <div class="col-12 d-flex justify-content-center">
  <div class="box_test w-75 px-lg-3 px-2 pt-lg-4 pt-2 pb-lg-3 pb-2">
  <h3 class="fs-3 mb-lg-3 mb-3 heading_">Thêm câu hỏi và câu trả lời</h3>
- <form id="myForm" action="<?= BASE_URL."addQuesAns"?>" method="post" enctype="multipart/form-data">
+ <form id="myForm" action="<?= BASE_URL . "addQuesAns" ?>" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
  <label for="">Câu hỏi</label> <br>
  <input type="text" name="question" class="form-control" placeholder="Nhập câu hỏi"><br>
 
  <div class="box-answer px-3 my-lg-2 my-1">
  <label for="">Câu trả lời 1</label> <br>
- <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 1"><br>
+ <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 1">
+ <label class="error-message" style="display: none;"></label><br>
 
  <label for="">Câu trả lời 2</label> <br>
- <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 2"><br>
+ <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 2">
+ <label class="error-message" style="display: none;"></label><br>
 
  <label for="">Câu trả lời 3</label> <br>
- <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 3"><br>
+ <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 3">
+ 
+ <label class="error-message" style="display: none;"></label><br>
 
  <label for="">Câu trả lời 4</label> <br>
- <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 4"><br>
+ <input type="text" name="answer[]" class="form-control" placeholder="Nhập câu trả lời 4">
+ <label class="error-message" style="display: none;"></label><br>
 
  <label for="">Chọn câu trả lời đúng</label> <br>
  <select class="form-control" name="answerCorrect" id="">
@@ -29,12 +34,41 @@
  <option value="3">Câu trả lời 4</option>
  </select>
  </div>
-
  <input type="submit" name="submit" value="Thêm mới" class="btn btn-success my-lg-2 my-1">
  </form>
  </div>
  </div>
 </div>
-<?php $this->stopSection(); ?>
+<script>
+ // validate cho câu trả lời có name=answer[] phải nhâp không được để trống
+ function validateForm() {
+ var inputs = document.getElementsByName("answer[]");
+ var isValid = true;
+ for (var i = 0; i < inputs.length; i++) {
+ var input = inputs[i];
+ if (input.value.trim() === "") {
+ var errorMessage = "Vui lòng nhập đầy đủ thông tin cho câu trả lời " + (i + 1) + ".";
+ showError(input, errorMessage);
+ isValid = false;
+ } else {
+ clearError(input);
+ }
+ }
+ return isValid;
+ }
 
+ function showError(element, message) {
+ var errorLabel = element.nextElementSibling;
+ errorLabel.textContent = message;
+ errorLabel.style.color = "red";
+ errorLabel.style.display = "block";
+ }
+
+ function clearError(element) {
+ var errorLabel = element.nextElementSibling;
+ errorLabel.textContent = "";
+ errorLabel.style.display = "none";
+ }
+</script>
+<?php $this->stopSection(); ?>
 <?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.admin'); } ?>

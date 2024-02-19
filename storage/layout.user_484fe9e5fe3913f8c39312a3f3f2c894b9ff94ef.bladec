@@ -115,9 +115,9 @@
  required: true,
  email: true
  },
- 'answer[]': {
- required: true,
- },
+ // 'answer[]': {
+ //     required: true,
+ // },
  pass: {
  required: true,
  minlength: 5,
@@ -133,9 +133,9 @@
  required: "Vui lòng nhâp email.",
  email: "Vui lòng nhập đúng định dạnh email."
  },
- 'answer[]': {
- required: "vui long chon",
- },
+ // 'answer[]': {
+ //     required: "vui long chon",
+ // },
  pass: {
  required: "Vui lòng nhập mật khẩu mới",
  minlength: "Vui lòng nhập tối thiểu 5 kí tự",
